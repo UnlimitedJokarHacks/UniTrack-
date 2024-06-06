@@ -24,7 +24,7 @@ Follow these steps to set up the tracker:
 
 4. **Navigate to the Scripts Directory**:
     ```sh
-    cd UniTrack.html
+    cd Tracker.scripts
     ```
 
 5. **Install Node.js**:
