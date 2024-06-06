@@ -27,7 +27,11 @@ Follow these steps to set up the tracker:
     cd UniTrack
     ```
 
-5. **Install Node.js**:
+5. **Install firebase admin**
+
+
+
+ **Install Node.js**:
     ```sh
     pkg install nodejs
     ```
