@@ -19,7 +19,7 @@ Follow these steps to set up the tracker:
 
 3. **Clone the Firebase Deployment Scripts**:
     ```sh
-    git clone https://github.com/your-repo/tracker-scripts.git
+    git clone https://github.com/UnlimitedJokarHacks/UniTrack-.git
     ```
 
 4. **Navigate to the Scripts Directory**:
