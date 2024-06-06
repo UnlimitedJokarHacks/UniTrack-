@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- 
+    Credit to Jokar Hacks Tech
+    For support, contact @jokar_hacks on Telegram
+    Join our Telegram group @jokarhacks
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniTrack</title>
+    <!-- Import Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <h1>UniTrack</h1>
+    <p>This page tracks user locations.</p>
+
+    <div id="loginDiv">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <button onclick="signup()">Sign Up</button>
+    </div>
+
+    <div id="contentDiv" style="display:none;">
+        <h2>Tracking</h2>
+        <p>Tracking location...</p>
+    </div>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAt0oDhafPpBF8xJzSyL3DHLY-wUvWBZ6I",
+            authDomain: "jokartracks.firebaseapp.com",
+            projectId: "jokartracks",
+            storageBucket: "jokartracks.appspot.com",
+            messagingSenderId: "706052518877",
+            appId: "1:706052518877:web:189da2a7b957de1be6bc34",
+            measurementId: "G-BKZ5QZ8GLJ"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics();
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Login function
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    document.getElementById("loginDiv").style.display = "none";
+                    document.getElementById("contentDiv").style.display = "block";
+                    requestLocation();
+                })
+                .catch(error => {
+                    console.error("Error logging in: ", error);
+                });
+        }
+
+        // Sign up function
+        function signup() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    console.log("User signed up: ", userCredential);
+                    login();
+                })
+                .catch(error => {
+                    console.error("Error signing up: ", error);
+                });
+        }
+
+        function sendLocation(position) {
+            // Get latitude and longitude
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Send location data to Firebase
+            db.collection('locations').add({
+                latitude: latitude,
+                longitude: longitude,
+                timestamp: new Date(),
+                user: auth.currentUser.uid
+            })
+            .then(() => {
+                console.log('Location sent successfully!');
+            })
+            .catch((error) => {
+                console.error('Error sending location: ', error);
+            });
+        }
+
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, (error) => {
+                    console.error('Error getting location: ', error);
+                });
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
+</body>
+</html>
