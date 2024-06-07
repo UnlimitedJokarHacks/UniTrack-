@@ -1,4 +1,4 @@
-# Tracker Setup and Usage Guide for Beginners and experts.
+# Tracker Setup and Usage Guide for Beginners and Experts
 
 Welcome to the Tracker Setup and Usage Guide. This guide provides simple, step-by-step instructions for setting up and using the tracker on your Termux environment.
 
@@ -27,26 +27,37 @@ Follow these steps to set up the tracker:
     cd UniTrack
     ```
 
-5. **Install firebase admin**
+5. **Install Firebase Admin SDK**:
+    ```sh
+    pip install firebase-admin
+    ```
 
+6. **Upgrade pip**:
+    ```sh
+    pip install --upgrade pip
+    ```
 
+7. **Upgrade Firebase Admin SDK**:
+    ```sh
+    pip install --upgrade firebase-admin
+    ```
 
- **Install Node.js**:
+8. **Install Node.js**:
     ```sh
     pkg install nodejs
     ```
 
-6. **Install Dependencies**:
+9. **Install Dependencies**:
     ```sh
     npm install
     ```
 
-7. **Install Python**:
+10. **Install Python**:
     ```sh
     pkg install python
     ```
 
-8. **Run Deployment Script**:
+11. **Run Deployment Script**:
     ```sh
     ./deploy.sh
     ```
